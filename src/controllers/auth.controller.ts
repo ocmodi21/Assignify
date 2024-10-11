@@ -10,7 +10,7 @@ class UserController {
 
     try {
       // Check if a user with the given email exists
-      const user = await UserModel.findOne({ email: email });
+      const user = await UserModel.findOne({ email: email, recStatus: true });
       if (!user) {
         return res
           .status(404)
@@ -64,7 +64,7 @@ class UserController {
         name,
         email,
         password: hash,
-        role,
+        role: req.originalUrl.includes("/admin/register") ? "admin" : "user",
       });
 
       // Check if user creation was successful
@@ -83,6 +83,28 @@ class UserController {
       return res
         .status(500)
         .json({ message: "Server error: Unable to register user." });
+    }
+  }
+
+  async getAllAdmins(req: Request, res: Response): Promise<any> {
+    try {
+      // Fetch all users who have the 'admin' role
+      const admins = await UserModel.find({ role: "admin" });
+
+      // If no admins are found, respond with a 404 status
+      if (!admins || admins.length === 0) {
+        return res.status(404).json({ message: "No admins found." });
+      }
+
+      // If admins are found, return them with a 200 OK status
+      return res
+        .status(200)
+        .json({ message: "Admins retrieved successfully.", data: admins });
+    } catch (error) {
+      // Handle any errors that occur while fetching admins
+      return res
+        .status(500)
+        .json({ message: "Server error: Unable to fetch admin data." });
     }
   }
 }

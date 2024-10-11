@@ -21,6 +21,7 @@ class AssignmentController {
       const userIdRole = await UserModel.findOne({
         name: userId,
         role: "admin",
+        recStatus: true,
       });
 
       if (!userIdRole) {
@@ -33,6 +34,7 @@ class AssignmentController {
       const adminExists = await UserModel.findOne({
         name: admin,
         role: "admin",
+        recStatus: true,
       });
 
       if (!adminExists) {
@@ -66,6 +68,7 @@ class AssignmentController {
       const adminExists = await UserModel.findOne({
         name,
         role: "admin",
+        recStatus: true,
       });
 
       if (!adminExists) {
@@ -107,6 +110,7 @@ class AssignmentController {
       const adminExists = await UserModel.findOne({
         name,
         role: "admin",
+        recStatus: true,
       });
 
       if (!adminExists) {
@@ -150,6 +154,7 @@ class AssignmentController {
       const adminExists = await UserModel.findOne({
         name,
         role: "admin",
+        recStatus: true,
       });
 
       if (!adminExists) {

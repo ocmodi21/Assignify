@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 
 import logger from "./middlewares/logger/logger";
 import userRoutes from "./routes/user.route";
-import assignmentRoutes from "./routes/assignment.route";
+import adminRoutes from "./routes/admin.route";
 
 dotenv.config();
 
@@ -17,7 +17,7 @@ app.use(logger);
 
 // api
 app.use("/api/v1/user", userRoutes);
-app.use("/api/v1/assignment", assignmentRoutes);
+app.use("/api/v1/admin", adminRoutes);
 
 // Connect to MongoDB
 mongoose
