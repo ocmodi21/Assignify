@@ -1,17 +1,16 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface Assignment extends Document {
-  title: string;
+  task: string;
   admin: string;
   status: "accept" | "reject" | "pending";
 }
 
 const AssignmentSchema: Schema = new Schema(
   {
-    title: { type: String, required: true, unique: true },
-    role: {
+    task: { type: String, required: true },
+    status: {
       type: String,
-      required: true,
       enum: ["accept", "reject", "pending"],
       default: "pending",
     },

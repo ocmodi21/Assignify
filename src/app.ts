@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 
 import logger from "./middlewares/logger/logger";
 import userRoutes from "./routes/user.route";
+import assignmentRoutes from "./routes/assignment.route";
 
 dotenv.config();
 
@@ -14,7 +15,9 @@ app.use(cors());
 app.use(express.json());
 app.use(logger);
 
-app.use("/api/v1/user", userRoutes)
+// api
+app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/assignment", assignmentRoutes);
 
 // Connect to MongoDB
 mongoose
