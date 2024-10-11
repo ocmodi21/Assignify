@@ -42,7 +42,7 @@ class UserController {
 
   // Register a new user
   async register(req: Request, res: Response): Promise<any> {
-    const { name, email, password, role } = req.body;
+    const { name, email, password } = req.body;
 
     try {
       // Check if a user with the given email and name already exists
