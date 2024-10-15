@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    env_file: ./.env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: $MONGO_USER
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_PASSWORD
+    ports:
+      - $MONGO_LOCAL_PORT:$MONGO_DOCKER_PORT
+    volumes:
+      - mongo_data:/data/db
+
+  assignify-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: assignify-server
+    env_file: ./.env
+    ports:
+      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+    environment:
+      - PORT=$PORT
+      - MONGO_URL=$MONGO_URL
+      - SALT_ROUNDS=$SALT_ROUNDS
+      - TOKEN_KEY=$TOKEN_KEY
+    depends_on:
+      - mongo
+    command:
+      - /bin/sh
+      - -c
+      - npm run start
+
+volumes:
+  mongo_data:
