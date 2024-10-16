@@ -1,12 +1,14 @@
-FROM node:alpine
+FROM node:20-alpine
 
 WORKDIR /assignify
 
-COPY package*.json ./
-COPY tsconfig.json ./
-
-RUN npm install
+RUN npm install -g pnpm
 
 COPY . .
 
-RUN npm run build
+RUN pnpm install
+RUN pnpm run build
+
+EXPOSE 3030
+
+CMD ["node", "./dist/app.js"]
