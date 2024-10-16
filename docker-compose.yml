@@ -21,11 +21,6 @@ services:
     env_file: ./.env
     ports:
       - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
-    environment:
-      - PORT=$PORT
-      - MONGO_URL=$MONGO_URL
-      - SALT_ROUNDS=$SALT_ROUNDS
-      - TOKEN_KEY=$TOKEN_KEY
     depends_on:
       - mongo
     command:
